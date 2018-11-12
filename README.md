@@ -240,5 +240,16 @@ var myAtoi = function(str) {
   return 0
 };
 
+var myAtoi = function(str) {
+    var num = parseInt(str);
+    if(!num){
+        return 0
+    }else{
+        var base = Math.pow(2,31);
+        num = num > base-1? base-1: num;
+        num = num < -base? -base:num;
+        return num
+    }
+};
 ```
 
