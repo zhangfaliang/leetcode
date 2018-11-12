@@ -141,3 +141,38 @@ var findMedianSortedArrays = function(nums1, nums2) {
   else return (s[len / 2 - 1] + s[len / 2]) / 2;
 };
 ```
+
+>>给定一个 32 位有符号整数，将整数中的数字进行反转。
+
+>>示例 1:
+
+>>>>输入: 123
+>>>>输出: 321
+ >>示例 2:
+
+>>>>输入: -123
+>>>>输出: -321
+>>示例 3:
+
+>>>>输入: 120
+>>>>输出: 21
+>>>>注意:
+
+>>>>假设我们的环境只能存储 32 位有符号整数，其数值范围是 [−231,  231 − 1]。根据这个假设，如果反转后的整数溢出，则返回 0。
+
+```javascript
+/**
+ * @param {number} x
+ * @return {number}
+ */
+
+let reverse = function(x) {
+    let res = 0;
+    while (x !== 0) {
+        res = res * 10 + x % 10;
+        x = x < 0 ? Math.ceil(x / 10) : Math.floor(x / 10);
+    }
+    return res < -(2**31) || res > 2**31 - 1 ? 0 : res;
+};
+```
+
