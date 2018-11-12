@@ -88,4 +88,56 @@ var lengthOfLongestSubstring = function(s) {
     return max
 };
 
-     ```
+```
+
+
+>>给定两个大小为 m 和 n 的有序数组 nums1 和 nums2 。
+
+>>请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log (m+n)) 。
+
+>>你可以假设 nums1 和 nums2 不同时为空。
+
+>>示例 1:
+
+>>>>nums1 = [1, 3]
+>>>>nums2 = [2]
+
+>>>>中位数是 2.0
+>>示例 2:
+
+>>>>nums1 = [1, 2]
+>>>>nums2 = [3, 4]
+
+>>>>中位数是 (2 + 3)/2 = 2.5
+
+```javaScript
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+//~是按位取反运算，~~是取反两次
+// 在这里~~的作用是去掉小数部分
+// 因为位运算的操作值要求是整数，其结果也是整数，所以经过位运算的都会自动变成整数
+// 除了~~n 还可以用
+// n<<0
+// n>>0
+// n|0
+// 取整
+//与Math.floor()不同的是，它只是单纯的去掉小数部分，不论正负都不会改变整数部分
+var findMedianSortedArrays = function(nums1, nums2) {
+  // 合并数组
+  var s = nums1.concat(nums2);
+
+  // 排序
+  s.sort(function(a, b) {
+    return a - b;
+  });
+
+  var len = s.length;
+
+  // 根据数组长度求中位数
+  if (len%2!=0) return s[~~(len / 2)];
+  else return (s[len / 2 - 1] + s[len / 2]) / 2;
+};
+```
