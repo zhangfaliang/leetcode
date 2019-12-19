@@ -1,13 +1,9 @@
-var maxProfit = function(prices) {
-    var maxValue=0;
-    var minValue=Number.MAX_VALUE;
-    for(var i=0;i<prices.length;i++){
-      if(minValue>prices[i]){
-        minValue=prices[i];
-      }else{
-        maxValue= maxValue<prices[i]- minValue?prices[i]- minValue:maxValue;
+var singleNumber = function(nums) {
+    for(var i=0;i<nums.length;i++){
+      if(nums.indexOf(nums[i])===nums.lastIndexOf(nums[i])){
+        return nums[i]
       }
     }
-    return maxValue
 };
-console.log(maxProfit([1,4,5,6,7]));
+
+console.log(singleNumber([1,1,2,2,3,3,4,2]))
