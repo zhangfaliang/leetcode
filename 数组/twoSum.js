@@ -42,6 +42,26 @@ var twoSum = function(nums, target) {
 };
 
 /**
+ * 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+
+示例 1:
+
+输入: 121
+输出: true
+示例 2:
+
+输入: -121
+输出: false
+解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。
+示例 3:
+
+输入: 10
+输出: false
+解释: 从右向左读, 为 01 。因此它不是一个回文数。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/palindrome-number
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  * @param {number} x
  * @return {boolean}
  * 解题思路
@@ -56,4 +76,174 @@ var isPalindrome = function(x) {
     x1 = parseInt(x1 / 10);
   }
   return s == x;
+};
+
+/**
+ * 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+
+不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
+
+示例 1:
+
+给定数组 nums = [1,1,2], 
+
+函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。 
+
+你不需要考虑数组中超出新长度后面的元素。
+示例 2:
+
+给定 nums = [0,0,1,1,1,2,2,3,3,4],
+
+函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。
+
+你不需要考虑数组中超出新长度后面的元素。
+说明:
+
+为什么返回数值是整数，但输出的答案是数组呢?
+
+请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。
+
+你可以想象内部操作如下:
+
+// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
+int len = removeDuplicates(nums);
+
+// 在函数里修改输入数组对于调用者是可见的。
+// 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。
+for (int i = 0; i < len; i++) {
+    print(nums[i]);
+}
+
+ */
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * 注意这是一个排序好的数组，很重要， 思路已知数组已排序，那么只要保证数组的前一个不等于后一个就可以搞定
+ * 空间复杂度 o1
+ * 时间复杂度 on
+ */
+var removeDuplicates = function(nums) {
+  let index = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] != nums[i + 1] || i + 1 === nums.length) {
+      nums[index++] = nums[i];
+    }
+  }
+  return index;
+};
+
+/**
+ * 
+ * @param {罗马数字包含以下七种字符: I， V， X， L，C，D 和 M。
+
+字符          数值
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做  XXVII, 即为 XX + V + II 。
+
+通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况：
+
+I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。
+X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 
+C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
+给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。
+
+示例 1:
+
+输入: "III"
+输出: 3
+示例 2:
+
+输入: "IV"
+输出: 4
+示例 3:
+
+输入: "IX"
+输出: 9
+示例 4:
+
+输入: "LVIII"
+输出: 58
+解释: L = 50, V= 5, III = 3.
+示例 5:
+
+输入: "MCMXCIV"
+输出: 1994
+解释: M = 1000, CM = 900, XC = 90, IV = 4.
+。} s
+ */
+
+var romanToInt = function(s) {
+  const enumerationObj = {
+    I: 1,
+    IV: 4,
+    V: 5,
+    IX: 9,
+    X: 10,
+    XL: 40,
+    L: 50,
+    XC: 90,
+    C: 100,
+    CD: 400,
+    D: 500,
+    CM: 900,
+    M: 1000
+  };
+  let res = 0;
+  for (let i = s.length - 1; i >= 0; i--) {
+    const current = s[i];
+    if (i > 0) {
+      const specialCurrent = `${s[i - 1]}${s[i]}`;
+      if (specialCurrent in enumerationObj) {
+        res = res + enumerationObj[specialCurrent];
+        i = i - 1;
+        continue;
+      }
+      res = res + enumerationObj[current];
+      continue;
+    }
+    res = res + enumerationObj[current];
+  }
+
+  return res;
+};
+
+var removeDuplicates = function(nums) {
+  let index = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] != nums[i + 1] || i + 1 === nums.length) {
+      nums[index++] = nums[i];
+    }
+  }
+  return index;
+};
+
+var romanToInt = function(s) {
+  const enumerationObj = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000
+  };
+  let res = 0;
+  let pre = enumerationObj[s[0]];
+  for (let i = 1; i < s.length; i++) {
+    const value = enumerationObj[s[i]];
+    if (value > pre) {
+      res -= pre;
+    } else {
+      res += pre;
+    }
+    pre = value;
+  }
+  res += pre;
+  return res;
 };
