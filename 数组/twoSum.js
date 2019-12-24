@@ -305,3 +305,78 @@ const removeElement = function(nums, val) {
   }
   return sum;
 };
+
+/**
+ * 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+
+你可以假设数组中无重复元素。
+
+示例 1:
+
+输入: [1,3,5,6], 5
+输出: 2
+示例 2:
+
+输入: [1,3,5,6], 2
+输出: 1
+示例 3:
+
+输入: [1,3,5,6], 7
+输出: 4
+示例 4:
+
+输入: [1,3,5,6], 0
+输出: 0
+
+来源：力扣（LeetCode）
+ */
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+const searchInsert = function(nums, target) {
+  let start = 0;
+  let end = nums.length - 1;
+  while (start <= end) {
+    const midIndex = Math.floor((start + end) / 2);
+    const mid = nums[midIndex];
+    if (mid === target) {
+      return midIndex;
+    }
+    if (mid > target) {
+      end = midIndex - 1;
+    } else {
+      start = midIndex + 1;
+    }
+  }
+  return start;
+};
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+const searchInsert1 = function(nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] >= target) {
+      return i;
+    }
+  }
+  return nums.length;
+};
+
+const searchInsert2 = function(nums, target) {
+  let s = 0;
+  let e = nums.length;
+  while (s < e) {
+    const m = parseInt((e + s) / 2);
+    if (nums[m] < target) {
+      s = m + 1;
+    } else {
+      e = m;
+    }
+  }
+  return s;
+};
