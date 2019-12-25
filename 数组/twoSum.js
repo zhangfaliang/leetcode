@@ -461,9 +461,6 @@ nums2 = [2,5,6],       n = 3
 
 输出: [1,2,2,3,5,6]
 
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/merge-sorted-array
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 /**
  * @param {number[]} nums1
@@ -475,4 +472,208 @@ nums2 = [2,5,6],       n = 3
 const merge = function(nums1, m, nums2, n) {
   nums1.splice(m, nums1.length - m, ...nums2);
   nums1.sort((a, b) => a - b);
+};
+/**
+ * 
+ * @param {给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
+
+最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
+
+你可以假设除了整数 0 之外，这个整数不会以零开头。
+
+示例 1:
+
+输入: [1,2,3]
+输出: [1,2,4]
+解释: 输入数组表示数字 123。
+示例 2:
+
+输入: [4,3,2,1]
+输出: [4,3,2,2]
+解释: 输入数组表示数字 4321。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/plus-one
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。} digits 
+ */
+
+const plusOne = function(digits) {
+  const len = digits.length - 1;
+  return addOne(digits, 1, len);
+};
+function addOne(digits, addNum, index) {
+  if (index === -1 && addNum != 0) {
+    digits.unshift(1);
+    return digits;
+  }
+  if (digits[index] + addNum === 10) {
+    digits[index] = 0;
+    return addOne(digits, 1, --index);
+  }
+  digits[index] = digits[index] + addNum;
+  return digits;
+}
+/**
+ * 给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
+
+
+在杨辉三角中，每个数是它左上方和右上方的数的和。
+
+示例:
+
+输入: 5
+输出:
+[
+     [1],
+    [1,1],
+   [1,2,1],
+  [1,3,3,1],
+ [1,4,6,4,1]
+]
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/pascals-triangle
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+const generate = function(numRows) {
+  const res = [];
+  for (let i = 0; i < numRows; i++) {
+    res[i] = [];
+    for (let j = 0; j <= i; j++) {
+      if (j == 0 || j == i) {
+        res[i].push(1);
+        continue;
+      }
+      res[i].push(res[i - 1][j - 1] + res[i - 1][j]);
+    }
+  }
+  return res;
+};
+
+/**
+ * 给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。
+
+
+在杨辉三角中，每个数是它左上方和右上方的数的和。
+
+示例:
+
+输入: 3
+输出: [1,3,3,1]
+进阶：
+
+你可以优化你的算法到 O(k) 空间复杂度吗？
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/pascals-triangle-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
+/**
+ * @param {number} rowIndex
+ * @return {number[]}
+ */
+const getRow = function(rowIndex) {
+  const res = [];
+  for (let i = 0; i <= rowIndex; i++) {
+    res[i] = [];
+    for (let j = 0; j <= i; j++) {
+      if (j == 0 || j == i) {
+        res[i].push(1);
+        continue;
+      }
+      res[i].push(res[i - 1][j - 1] + res[i - 1][j]);
+    }
+  }
+  return res[rowIndex];
+};
+
+/**
+ * 给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+
+如果你最多只允许完成一笔交易（即买入和卖出一支股票），设计一个算法来计算你所能获取的最大利润。
+
+注意你不能在买入股票前卖出股票。
+
+示例 1:
+
+输入: [7,1,5,3,6,4]
+输出: 5
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+     注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
+示例 2:
+
+输入: [7,6,4,3,1]
+输出: 0
+解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+
+const maxProfit = function(prices) {
+  let min = prices[0];
+  let profit = 0;
+  for (let i = 0; i < prices.length; i++) {
+    min = Math.min(min, prices[i]);
+    profit = Math.max(prices[i] - min, profit);
+  }
+  return profit;
+};
+
+/**
+ * 给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+
+设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
+
+注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+示例 1:
+
+输入: [7,1,5,3,6,4]
+输出: 7
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。
+示例 2:
+
+输入: [1,2,3,4,5]
+输出: 4
+解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。
+     因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。
+示例 3:
+
+输入: [7,6,4,3,1]
+输出: 0
+解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function(prices) {
+  let profit = 0;
+  let min = prices[0];
+  let reprofit = 0;
+  for (let i = 1; i < prices.length; i++) {
+    min = Math.min(prices[i], min);
+    profit = Math.max(prices[i] - min, profit);
+    if (prices[i] - prices[i - 1] > 0) {
+      reprofit += prices[i] - prices[i - 1];
+    }
+  }
+  return reprofit > profit ? reprofit : profit;
 };
