@@ -6,11 +6,11 @@ class MyQueue {
   }
 
   enQueue(element) {
-    console.log((this.rear + 1) % this.array.length);
     if ((this.rear + 1) % this.array.length === this.front) {
       console.log(' 队列已满！');
     }
     this.array[this.rear] = element;
+    console.log(this.rear + 1, this.array.length);
     this.rear = (this.rear + 1) % this.array.length;
   }
 
@@ -18,7 +18,7 @@ class MyQueue {
    * 出队
    */
   deQueue() {
-    if (this.rear == this.front) {
+    if (this.rear === this.front) {
       throw new Exception(' 队列已空！');
     }
     const deQueueElement = this.array[this.front];
