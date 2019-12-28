@@ -711,5 +711,122 @@ const twoSum1 = function(numbers, target) {
     map[current] = i;
   }
 };
+/**
+ *
+ * @param {*} nums
+ * 给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
 
-console.log(twoSum1([2, 7, 11, 15], 9));
+你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+
+示例 1:
+
+输入: [3,2,3]
+输出: 3
+示例 2:
+
+输入: [2,2,1,1,1,2,2]
+输出: 2
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/majority-element
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
+
+const ajorityElement = function(nums) {
+  const map = {};
+  let ele;
+  let max = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] in map) {
+      map[nums[i]] = map[nums[i]] + 1;
+      continue;
+    }
+    map[nums[i]] = 1;
+  }
+  for (const key in map) {
+    if (map[key] > max) {
+      max = map[key];
+      ele = key;
+    }
+  }
+  return ele;
+};
+const majorityElement = function(nums) {
+  const majority = nums.length / 2;
+  let count = 0;
+  let currNum;
+  for (const v of nums) {
+    if (count == 0) {
+      currNum = v;
+    }
+    count += v == currNum ? 1 : -1;
+  }
+  return currNum;
+};
+/**
+ * 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+
+示例 1:
+
+输入: [1,2,3,4,5,6,7] 和 k = 3
+输出: [5,6,7,1,2,3,4]
+解释:
+向右旋转 1 步: [7,1,2,3,4,5,6]
+向右旋转 2 步: [6,7,1,2,3,4,5]
+向右旋转 3 步: [5,6,7,1,2,3,4]
+示例 2:
+
+输入: [-1,-100,3,99] 和 k = 2
+输出: [3,99,-1,-100]
+解释:
+向右旋转 1 步: [99,-1,-100,3]
+向右旋转 2 步: [3,99,-1,-100]
+说明:
+
+尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。
+要求使用空间复杂度为 O(1) 的 原地 算法。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/rotate-array
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+const rotate = function(nums, k) {
+  const cutOutNum = k % nums.length;
+  const cutOuArray = nums.splice(-cutOutNum, cutOutNum);
+  nums.unshift(...cutOuArray);
+};
+/**
+ * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+
+示例:
+
+输入: [0,1,0,3,12]
+输出: [1,3,12,0,0]
+说明:
+
+必须在原数组上操作，不能拷贝额外的数组。
+尽量减少操作次数。
+在真实的面试中遇到过这道题
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/move-zeroes
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
+const moveZeroes = function(nums) {
+  const { length } = nums;
+  let currentIndex = 0;
+  for (let i = 0; i < length; i++) {
+    if (nums[i] != 0) {
+      nums[currentIndex] = nums[i];
+      if (currentIndex != i) {
+        nums[i] = 0;
+      }
+      currentIndex++;
+    }
+  }
+};
