@@ -830,3 +830,117 @@ const moveZeroes = function(nums) {
     }
   }
 };
+/**
+ * 给定一个非空数组，返回此数组中第三大的数。如果不存在，则返回数组中最大的数。要求算法时间复杂度必须是O(n)。
+
+示例 1:
+
+输入: [3, 2, 1]
+
+输出: 1
+
+解释: 第三大的数是 1.
+示例 2:
+
+输入: [1, 2]
+
+输出: 2
+
+解释: 第三大的数不存在, 所以返回最大的数 2 .
+示例 3:
+
+输入: [2, 2, 3, 1]
+
+输出: 1
+
+解释: 注意，要求返回第三大的数，是指第三大且唯一出现的数。
+存在两个值为2的数，它们都排第二。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/third-maximum-number
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ * @param {*} nums
+ */
+const thirdMax = function(nums) {
+  let current = null;
+  let num = 0;
+  nums.sort((a, b) => b - a);
+  for (item of nums) {
+    if (current !== item) {
+      current = item;
+      num++;
+      if (num === 3) return item;
+    }
+  }
+
+  if (num < 3) return nums[0];
+};
+/**
+ * 给定一个范围在  1 ≤ a[i] ≤ n ( n = 数组大小 ) 的 整型数组，数组中的元素一些出现了两次，另一些只出现一次。
+
+找到所有在 [1, n] 范围之间没有出现在数组中的数字。
+
+您能在不使用额外空间且时间复杂度为O(n)的情况下完成这个任务吗? 你可以假定返回的数组不算在额外空间内。
+
+示例:
+
+输入:
+[4,3,2,7,8,2,3,1]
+
+输出:
+[5,6]
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+const findDisappearedNumbers = function(nums) {
+  const maxNum = nums.length;
+  const res = [];
+  for (let i = 0; i < maxNum; i++) {
+    if (nums.indexOf(i + 1) < 0) {
+      res.push(i + 1);
+    }
+  }
+  return res;
+};
+/**
+ * 给定一个二进制数组， 计算其中最大连续1的个数。
+
+示例 1:
+
+输入: [1,1,0,1,1,1]
+输出: 3
+解释: 开头的两位和最后的三位都是连续1，所以最大连续1的个数是 3.
+注意：
+
+输入的数组只包含 0 和1。
+输入数组的长度是正整数，且不超过 10,000。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/max-consecutive-ones
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ * @param {*} nums
+ */
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+const findMaxConsecutiveOnes = function(nums) {
+  let max = 0;
+  let current = 0;
+  for (const item of nums) {
+    if (item == 1) {
+      current++;
+      max = Math.max(max, current);
+    } else {
+      current = 0;
+    }
+  }
+  return max;
+};
